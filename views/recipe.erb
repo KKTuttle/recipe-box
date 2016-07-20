@@ -10,10 +10,26 @@
 
 <% else %>
 
-    <p><strong>There are currently no ingredients assigned to this project.</strong></p>
+    <p><strong>There are currently no ingredients assigned to this recipe.</strong></p>
     <br>
 
 <% end %>
 
 <h3>Instructions:</h3>
 <%= @recipe.instruction() %>
+<br>
+<br>
+<% if @recipe.tags.any? %>
+  <h3>Tags:</h3>
+  <ul>
+    <% @recipe.tags.each() do |recipe_tag| %>
+      <li><%= recipe_tag.name %></li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p><strong>There are currently no tags assigned to this recipe.</strong></p>
+    <br>
+
+<% end %>

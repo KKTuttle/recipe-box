@@ -1,34 +1,55 @@
 <h1>Add a New Recipe</h1>
+<div class="col-md-6">
+  <h3>Add an ingredient:</h3>
+  <form action="/ingredients" method="post">
+    <label for="ingredient_name">Ingredient:</label>
+    <input type="text" name="ingredient_name" id="ingredient_name">
+    <button type="submit">Add Ingredient</button>
+  </form>
+  <h3>Add a New Tag:</h3>
+  <form action="/tags" method="post">
+    <label for="tag_name">Tag:</label>
+    <input type="text" name="tag_name" id="tag_name">
+    <button type="submit">Add Tag</button>
+  </form>
+</div>
 
-<h3>Add an ingredient:</h3>
-<form action="/ingredients" method="post">
-  <label for="ingredient_name">Ingredient:</label>
-  <input type="text" name="ingredient_name" id="ingredient_name">
-  <button type="submit">Add Ingredient</button>
-</form>
-
-<br>
-
-<form action="/recipes" method="post">
-  <label for="recipe_name">Recipe Name:</label>
-  <input type="text" name="recipe_name" id="recipe_name">
-  <br>
-  <br>
-  <label for="ingredients">Choose Ingredients:</label>
-  <% if @ingredients.any?() %>
-    <% @ingredients.each() do |ingredient| %>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id()%>"><%= ingredient.name()%>
-      </label>
-    </div>
+<div class="col-md-6">
+  <h1>Add Recipe Here:</h1>
+  <form action="/recipes" method="post">
+    <label for="recipe_name">Recipe Name:</label>
+    <input type="text" name="recipe_name" id="recipe_name">
+    <br>
+    <br>
+    <label for="ingredients">Choose Ingredients:</label>
+    <% if @ingredients.any?() %>
+      <% @ingredients.each() do |ingredient| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id()%>"><%= ingredient.name()%>
+        </label>
+      </div>
+      <% end %>
+    <%else%>
+      <p>Please add an ingredient.</p>
     <% end %>
-  <%else%>
-    <p>Please add an ingredient.</p>
-  <% end %>
-
-
-  <label for="instructions">Instructions:</label>
-  <input type="textarea" name="instructions" id="instructions">
-  <button type="submit">Create Recipe</button>
-</form>
+    <label for="instructions">Instructions:</label>
+    <br>
+    <textarea rows="6" name="instructions" id="instructions"></textarea>
+    <br>
+    <br>
+    <label for="tags">Tag your Recipe:</label>
+    <% if @tags.any?() %>
+      <% @tags.each() do |tag| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="tag_ids[]" value="<%= tag.id()%>"><%= tag.name()%>
+        </label>
+      </div>
+      <% end %>
+    <%else%>
+      <p>Optional: Please add a tag.</p>
+    <% end %>
+    <button type="submit">Create Recipe</button>
+  </form>
+</div>
