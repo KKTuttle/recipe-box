@@ -14,18 +14,17 @@ get('/recipes/new') do
 end
 
 post('/ingredients') do
-  name = params.fetch('name')
-  Ingredient.create({:name => name})
+  ingredient_name = params.fetch('ingredient_name')
+  Ingredient.create({:name => ingredient_name})
   redirect back
 end
 
 post('/recipes') do
-  name = params.fetch('name')
+  recipe_name = params.fetch('recipe_name')
   ingredient_ids = params.fetch('ingredient_ids')
   instructions = params.fetch('instructions')
-  @recipe = Recipe.create({:name => name, :ingredient_ids => ingredient_ids, :instruction => instructions})
-  @recipes = Recipe.all()
-  erb(:recipes)
+  @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions})
+  redirect('/recipes/'.concat(@recipe.id().to_s()))
 end
 
 get('/recipes/:id') do
