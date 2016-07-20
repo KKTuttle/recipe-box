@@ -12,8 +12,9 @@
 <form action="/recipes" method="post">
   <label for="name">Recipe Name:</label>
   <input type="text" name="name" id="name">
+  <br>
+  <br>
   <label for="ingredients">Choose Ingredients:</label>
-
   <% if @ingredients.any?() %>
     <% @ingredients.each() do |ingredient| %>
     <div class="checkbox">
@@ -21,6 +22,7 @@
         <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id()%>"><%= ingredient.name()%>
       </label>
     </div>
+    <% end %>
   <%else%>
     <p>Please add an ingredient.</p>
   <% end %>
