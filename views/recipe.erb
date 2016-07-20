@@ -1,0 +1,16 @@
+<h1><%= @recipe.name() %></h1>
+
+<% if @recipe.ingredients.any? %>
+  <h3>Ingredients:</h3>
+  <ul>
+    <% @recipe.ingredients.each() do |recipe_ingredient| %>
+      <li><%= recipe_ingredient.name %></li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p><strong>There are currently no ingredients assigned to this project.</strong></p>
+    <br>
+
+<% end %>
