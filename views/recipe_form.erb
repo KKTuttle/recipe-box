@@ -1,0 +1,32 @@
+<h1>Add a New Recipe</h1>
+
+<h3>Add an ingredient:</h3>
+<form action="/ingredients" method="post">
+  <label for="name">Ingredient:</label>
+  <input type="text" name="name" id="name">
+  <button type="submit">Add Ingredient</button>
+</form>
+
+<br>
+
+<form action="/recipes" method="post">
+  <label for="name">Recipe Name:</label>
+  <input type="text" name="name" id="name">
+  <label for="ingredients">Choose Ingredients:</label>
+
+  <% if @ingredients.any?() %>
+    <% @ingredients.each() do |ingredient| %>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id()%>"><%= ingredient.name()%>
+      </label>
+    </div>
+  <%else%>
+    <p>Please add an ingredient.</p>
+  <% end %>
+
+
+  <label for="instructions">Instructions:</label>
+  <input type="textarea" name="instructions" id="instructions">
+  <button type="submit">Create Recipe</button>
+</form>
