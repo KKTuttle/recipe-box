@@ -46,8 +46,8 @@ end
 
 get('/recipes/:id') do
   @recipe = Recipe.find(params.fetch('id').to_i())
-  @tags = Tag.all()
-  @ingredients = Ingredient.all()
+  @tags = Tag.all() - @recipe.tags()
+  @ingredients = Ingredient.all() - @recipe.ingredients()
   erb(:recipe)
 end
 
