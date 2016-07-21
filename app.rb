@@ -48,8 +48,8 @@ get('/recipes') do
 end
 
 delete('/recipes/:id') do
-  @recipe = Recipe.find(params.fetch("id"))
-  @recipe.destroy()
+  recipe = Recipe.find(params.fetch("id"))
+  recipe.destroy()
   redirect ("/recipes")
 end
 
@@ -91,12 +91,17 @@ patch('/recipes/:id') do
     end
     @recipe.update({:ingredient_ids => ingredient_ids_array})
 
-  else
+  elsif params.fetch("form_id").==("remove_ingredients")
     @recipe = Recipe.find(params.fetch('id').to_i())
     remove_ingredient_ids = params[:ingredient_ids]
     remove_ingredient_ids.each() do |id|
       @recipe.ingredients.destroy(Ingredient.find(id))
     end
+
+  else
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    rating = params.fetch('rate_recipe')
+    @recipe.update({:rating => rating})
   end
   redirect back
 end
@@ -120,7 +125,7 @@ patch('/tags/:id') do
 end
 
 delete("/tags/:id") do
-  @tag = Tag.find(params.fetch('id').to_i())
-  @tag.destroy()
+  tag = Tag.find(params.fetch('id').to_i())
+  tag.destroy()
   redirect ("/tags")
 end

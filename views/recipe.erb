@@ -1,5 +1,8 @@
 <div class="col-md-6">
   <h1><%= @recipe.name() %></h1>
+  <% if @recipe.rating() %>
+  <h2>Rating: <%= @recipe.rating() %></h2>
+  <% end %>
   <% if @recipe.ingredients.any? %>
   <h3>Ingredients:</h3>
   <ul>
@@ -30,6 +33,20 @@
   <form id="" action="/recipes/<%= @recipe.id %>" method="post">
     <input type="hidden" name="_method" value="delete">
     <button type="submit">Delete Recipe</button>
+  </form>
+<br><br>
+  <form action="/recipes/<%= @recipe.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input name="form_id" type="hidden" value="rate_recipe">
+    <label for="rate_recipe">Rate your Recipe</label>
+    <select name="rate_recipe">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    <button type="submit">Rate Recipe</button>
   </form>
 
 </div>
