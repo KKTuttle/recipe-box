@@ -30,10 +30,12 @@ post('/recipes') do
   recipe_name = params.fetch('recipe_name')
   ingredient_ids = params.fetch('ingredient_ids')
   instructions = params.fetch('instructions')
+  if instructions.==("")
+    instructions = nil
+  end
   tag_ids = params.fetch('tag_ids')
   @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids})
   redirect('/recipes/'.concat(@recipe.id().to_s()))
-
 end
 
 get('/recipes/:id') do
@@ -44,4 +46,27 @@ end
 get('/recipes') do
   @recipes = Recipe.all()
   erb(:recipes)
+end
+
+get('/tags') do
+  @tags = Tag.all()
+  erb(:tags)
+end
+
+get('/tags/:id') do
+  @tag = Tag.find(params.fetch('id').to_i())
+  erb(:tag)
+end
+
+patch('/tags/:id') do
+  @tag = Tag.find(params.fetch('id').to_i())
+  tag_name = params.fetch('tag_name')
+  @tag.update({:name => tag_name})
+  redirect back
+end
+
+delete("/tags/:id") do
+  @tag = Tag.find(params.fetch('id').to_i())
+  @tag.destroy()
+  redirect ("/tags")
 end

@@ -1,0 +1,19 @@
+<h1>Tags</h1>
+
+<% if @tags == [] %>
+
+<p>There are currently no tags in the database</p>
+
+<% else %>
+
+<ul>
+
+  <% @tags.each() do |tag| %>
+
+  <li><a href="/tags/<%= tag.id() %>"><%= tag.name() %></a></li>
+
+  <% end %>
+
+</ul>
+
+<% end %>
