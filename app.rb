@@ -30,22 +30,49 @@ post('/recipes') do
   recipe_name = params.fetch('recipe_name')
   ingredient_ids = params.fetch('ingredient_ids')
   instructions = params.fetch('instructions')
-  if instructions.==("")
-    instructions = nil
-  end
-  tag_ids = params.fetch('tag_ids')
+  tag_ids = params[:tag_ids]
   @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids})
   redirect('/recipes/'.concat(@recipe.id().to_s()))
 end
 
 get('/recipes/:id') do
   @recipe = Recipe.find(params.fetch('id').to_i())
+  @tags = Tag.all()
   erb(:recipe)
 end
 
 get('/recipes') do
   @recipes = Recipe.all()
   erb(:recipes)
+end
+
+patch('/recipes/:id') do
+  if params.fetch("form_id").==("change_name")
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    recipe_name = params.fetch('recipe_name')
+    instructions = params.fetch('instructions')
+    @recipe.update({:name => recipe_name, :instruction => instructions})
+
+  elsif params.fetch("form_id").==("add_tags")
+    new_tag_ids = params[:tag_ids]
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    tag_ids_array = []
+    @recipe.tags().each() do |tag|
+      tag_ids_array.push(tag.id())
+    end
+    new_tag_ids.each() do |id|
+      tag_ids_array.push(id)
+    end
+    @recipe.update({:tag_ids => tag_ids_array})
+
+  else
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    remove_tag_ids = params[:tag_ids]
+    remove_tag_ids.each() do |id|
+      @recipe.tags.destroy(Tag.find(id))
+    end
+  end
+  redirect back
 end
 
 get('/tags') do

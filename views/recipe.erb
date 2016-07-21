@@ -1,35 +1,84 @@
-<h1><%= @recipe.name() %></h1>
-
-<% if @recipe.ingredients.any? %>
+<div class="col-md-6">
+  <h1><%= @recipe.name() %></h1>
+  <% if @recipe.ingredients.any? %>
   <h3>Ingredients:</h3>
   <ul>
     <% @recipe.ingredients.each() do |recipe_ingredient| %>
-      <li><%= recipe_ingredient.name %></li>
+    <li><%= recipe_ingredient.name %></li>
     <% end %>
   </ul>
-
-<% else %>
-
-    <p><strong>There are currently no ingredients assigned to this recipe.</strong></p>
-    <br>
-
-<% end %>
-
-<h3>Instructions:</h3>
-<%= @recipe.instruction() %>
-<br>
-<br>
-<% if @recipe.tags.any? %>
+  <% else %>
+  <p><strong>There are currently no ingredients assigned to this recipe.</strong></p>
+  <br>
+  <% end %>
+  <h3>Instructions:</h3>
+  <%= @recipe.instruction() %>
+  <br>
+  <br>
+  <% if @recipe.tags.any? %>
   <h3>Tags:</h3>
   <ul>
     <% @recipe.tags.each() do |recipe_tag| %>
-      <li><%= recipe_tag.name %></li>
+    <li><%= recipe_tag.name %></li>
     <% end %>
   </ul>
+  <% else %>
+  <p><strong>There are currently no tags assigned to this recipe.</strong></p>
+  <br>
+  <% end %>
+</div>
+<div class="col-md-6">
+  <h1>Update <%=@recipe.name()%></h1>
 
-<% else %>
+  <form action="/recipes/<%= @recipe.id() %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input name="form_id" type="hidden" value="change_name">
+    <div class="form-group">
+      <label for="recipe_name">Rename your recipe:</label>
+      <input type="text" name="recipe_name" id="recipe_name" value="<%= @recipe.name() %>">
+    </div>
+    <div class="form-group">
+      <label for="instructions">Update the Instructions:</label>
+      <input type="text" name="instructions" id="instructions" value="<%=@recipe.instruction()%>">
+    </div>
 
-    <p><strong>There are currently no tags assigned to this recipe.</strong></p>
-    <br>
+    <button type ="submit">Update</button>
+  </form>
 
-<% end %>
+  <h3>Add a tag:</h3>
+  <form id="add_tags" action="/recipes/<%= @recipe.id() %>" method="post">
+    <input name="_method" type="hidden" value="patch">
+    <input name="form_id" type="hidden" value="add_tags">
+    <% if @tags.any?() %>
+    <% @tags.each() do |tag| %>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="tag_ids[]" value="<%= tag.id()%>"><%= tag.name()%>
+      </label>
+    </div>
+    <% end %>
+    <%else%>
+    <p>Optional: Please add a tag to the database.</p>
+    <% end %>
+
+    <button type="submit">Add Tag</button>
+  </form>
+
+  <h3>Remove a Tag</h3>
+  <form id="remove_tags" action="/recipes/<%= @recipe.id() %>" method="post">
+    <input name="_method" type="hidden" value="patch">
+    <input type="hidden" name="form_id" value="remove_tags">
+    <% if @recipe.tags().any?() %>
+    <% @recipe.tags().each() do |tag| %>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="tag_ids[]" value="<%= tag.id()%>"><%= tag.name()%>
+      </label>
+    </div>
+    <% end %>
+    <%else%>
+    <p>There are no tags to remove.</p>
+    <% end %>
+    <button type="submit">Remove Tags</button>
+  </form>
+</div>

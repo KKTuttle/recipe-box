@@ -23,4 +23,12 @@ describe("Tag path", {:type => :feature}) do
     click_button('Update')
     expect(page).to have_content("Delicious")
   end
+
+  it("allows users to delete a tag") do
+    Tag.create({:name => "healthy"})
+    visit('/tags')
+    click_link('Healthy')
+    click_button('Delete')
+    expect(page).to have_no_content("Healthy")
+  end
 end
