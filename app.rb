@@ -31,7 +31,7 @@ post('/recipes') do
   ingredient_ids = params.fetch('ingredient_ids')
   instructions = params.fetch('instructions')
   tag_ids = params[:tag_ids]
-  @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids})
+  @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids, :rating => 0})
   redirect('/recipes/'.concat(@recipe.id().to_s()))
 end
 
@@ -43,7 +43,7 @@ get('/recipes/:id') do
 end
 
 get('/recipes') do
-  @recipes = Recipe.all()
+  @recipes = Recipe.order('rating DESC')
   erb(:recipes)
 end
 
