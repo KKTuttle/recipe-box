@@ -47,6 +47,12 @@ get('/recipes') do
   erb(:recipes)
 end
 
+delete('/recipes/:id') do
+  @recipe = Recipe.find(params.fetch("id"))
+  @recipe.destroy()
+  redirect ("/recipes")
+end
+
 patch('/recipes/:id') do
   if params.fetch("form_id").==("change_name")
     @recipe = Recipe.find(params.fetch('id').to_i())
