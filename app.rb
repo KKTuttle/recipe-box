@@ -38,6 +38,7 @@ end
 get('/recipes/:id') do
   @recipe = Recipe.find(params.fetch('id').to_i())
   @tags = Tag.all()
+  @ingredients = Ingredient.all()
   erb(:recipe)
 end
 
@@ -65,15 +66,35 @@ patch('/recipes/:id') do
     end
     @recipe.update({:tag_ids => tag_ids_array})
 
-  else
+  elsif params.fetch("form_id").==("remove_tags")
     @recipe = Recipe.find(params.fetch('id').to_i())
     remove_tag_ids = params[:tag_ids]
     remove_tag_ids.each() do |id|
       @recipe.tags.destroy(Tag.find(id))
     end
+
+  elsif params.fetch("form_id").==("add_ingredients")
+    new_ingredient_ids = params[:ingredient_ids]
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    ingredient_ids_array = []
+    @recipe.ingredients().each() do |ingredient|
+      ingredient_ids_array.push(ingredient.id())
+    end
+    new_ingredient_ids.each() do |id|
+      ingredient_ids_array.push(id)
+    end
+    @recipe.update({:ingredient_ids => ingredient_ids_array})
+
+  else
+    @recipe = Recipe.find(params.fetch('id').to_i())
+    remove_ingredient_ids = params[:ingredient_ids]
+    remove_ingredient_ids.each() do |id|
+      @recipe.ingredients.destroy(Ingredient.find(id))
+    end
   end
   redirect back
 end
+
 
 get('/tags') do
   @tags = Tag.all()
