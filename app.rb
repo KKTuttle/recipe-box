@@ -9,8 +9,8 @@ get('/') do
 end
 
 post('/recipes/ingredient_search') do
-  @ingredient_search = params.fetch('ingredient_search').capitalize() #'onion'
-  @ingredient = Ingredient.find_by name: @ingredient_search # onion object
+  @ingredient_search = params.fetch('ingredient_search').capitalize()
+  @ingredient = Ingredient.find_by name: @ingredient_search
   if @ingredient
     @search_results = @ingredient.recipes()
   end
@@ -37,7 +37,7 @@ end
 
 post('/recipes') do
   recipe_name = params.fetch('recipe_name')
-  ingredient_ids = params.fetch('ingredient_ids')
+  ingredient_ids = params[:ingredient_ids]
   instructions = params.fetch('instructions')
   tag_ids = params[:tag_ids]
   @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids, :rating => 0})

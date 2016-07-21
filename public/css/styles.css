@@ -1,4 +1,8 @@
-button a {
+body {
+  background-color: #dbf0ef;
+}
+
+button a, button {
   color: white;
 }
 
@@ -7,6 +11,63 @@ button a:hover {
   color: white;
 }
 
-.jumbotron {
-  text-align: center;
+img {
+  border: solid 5px #4ecec4;
+  display: block;
+  margin: 5% auto 0;
+  max-width: 60%;
+}
+
+input {
+  border-radius: 5px;
+  font-size: 1.5em;
+  min-width: 50%;
+}
+
+.small-input {
+  border-radius: 5px;
+  font-size: 1.5em;
+  min-width: 20%;
+}
+
+textarea {
+  border-radius: 5px;
+  font-size: 1.5em;
+  min-width: 80%;
+}
+
+
+.btn {
+  background-color: #4ecec4;
+}
+
+.btn:hover {
+  background-color: #2ca096;
+  color: white;
+}
+.navbar-default {
+  background-color: #f7f9f9;
+}
+
+.navbar-default .navbar-brand{
+  color: #00a676;
+  font-size: 1.3em;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #00a676;
+  font-size: 1.2em;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.text-main {
+  background-color: #f7f9f9;
+  border: solid 5px #4ecec4;
+  border-radius: 5px;
+  max-width: 80%;
+  margin: 5% auto;
+  padding: 20px;
 }

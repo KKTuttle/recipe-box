@@ -3,15 +3,14 @@
 <form action="/tags/<%= @tag.id() %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <label for="tag_name">Rename your tag:</label>
-  <input type="text" name="tag_name" id="tag_name" value="<%= @tag.name() %>">
+  <input type="text" name="tag_name" id="tag_name" class="small-input" value="<%= @tag.name() %>">
 
-  <button type ="submit">Update</button>
+  <button type ="submit" class="btn">Update</button>
 </form>
-
-
+<br><br>
 <form action="/tags/<%= @tag.id() %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <label>Delete your tag:</label>
 
-  <button type ="submit">Delete</button>
+  <button type ="submit" class="btn">Delete</button>
 </form>

@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 text-main">
   <h1><%= @recipe.name() %></h1>
   <% if @recipe.rating().!=(0) %>
   <h2>Rating: <%= @recipe.rating() %></h2>
@@ -32,7 +32,7 @@
 
   <form id="" action="/recipes/<%= @recipe.id %>" method="post">
     <input type="hidden" name="_method" value="delete">
-    <button type="submit">Delete Recipe</button>
+    <button type="submit" class="btn">Delete Recipe</button>
   </form>
 <br><br>
   <form action="/recipes/<%= @recipe.id %>" method="post">
@@ -46,14 +46,14 @@
       <option>4</option>
       <option>5</option>
     </select>
-    <button type="submit">Rate Recipe</button>
+    <button type="submit" class="btn">Rate Recipe</button>
   </form>
 
-  <a href="/recipes">Back to Recipes</a>
+  <button type="button" class="btn"><a href="/recipes">Back to Recipes</a></button>
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 text-main">
   <h1>Update <%=@recipe.name()%></h1>
 
   <form action="/recipes/<%= @recipe.id() %>" method="post">
@@ -68,7 +68,7 @@
       <input type="text" name="instructions" id="instructions" value="<%=@recipe.instruction()%>">
     </div>
 
-    <button type ="submit">Update</button>
+    <button type ="submit" class="btn">Update</button>
   </form>
 
   <h3>Add a tag:</h3>
@@ -87,7 +87,7 @@
     <p>Optional: Please add a tag to the database.</p>
     <% end %>
 
-    <button type="submit">Add Tag</button>
+    <button type="submit" class="btn">Add Tag</button>
   </form>
 
   <h3>Remove a Tag</h3>
@@ -105,7 +105,7 @@
     <%else%>
     <p>There are no tags to remove.</p>
     <% end %>
-    <button type="submit">Remove Tags</button>
+    <button type="submit" class="btn">Remove Tags</button>
   </form>
 
 
@@ -125,7 +125,7 @@
     <p>Optional: Please add an ingredient to the database.</p>
     <% end %>
 
-    <button type="submit">Add Ingredient</button>
+    <button type="submit" class="btn">Add Ingredient</button>
   </form>
 
   <h3>Remove a Ingredient</h3>
@@ -143,6 +143,6 @@
     <%else%>
     <p>There are no ingredients to remove.</p>
     <% end %>
-    <button type="submit">Remove Ingredients</button>
+    <button type="submit" class="btn">Remove Ingredients</button>
   </form>
 </div>

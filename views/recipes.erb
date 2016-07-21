@@ -1,26 +1,28 @@
-<h1>Recipes</h1>
+<div class="text-main">
+  <h1>Recipes</h1>
 
-<% if @recipes == [] %>
+  <% if @recipes == [] %>
 
-<p>There are currently no recipes in the database</p>
+  <p>There are currently no recipes in the database</p>
 
-<% else %>
+  <% else %>
 
-<ul>
+  <ul>
 
-  <% @recipes.each() do |recipe| %>
+    <% @recipes.each() do |recipe| %>
 
-  <li>
-    <% if recipe.rating().!=(0) %>
-    <%= recipe.rating() %>
-    <% else %>
+    <li>
+      <% if recipe.rating().!=(0) %>
+      <%= recipe.rating() %>
+      <% else %>
       NOT rated!
+      <% end %>
+      <a href="/recipes/<%= recipe.id() %>"><%= recipe.name() %></a>
+    </li>
+
     <% end %>
-    <a href="/recipes/<%= recipe.id() %>"><%= recipe.name() %></a>
-  </li>
+
+  </ul>
 
   <% end %>
-
-</ul>
-
-<% end %>
+</div>

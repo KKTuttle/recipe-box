@@ -1,19 +1,21 @@
-<h1>Tags</h1>
+<div class="text-main">
+  <h1>Tags</h1>
 
-<% if @tags == [] %>
+  <% if @tags == [] %>
 
-<p>There are currently no tags in the database</p>
+  <p>There are currently no tags in the database</p>
 
-<% else %>
+  <% else %>
 
-<ul>
+  <ul>
 
-  <% @tags.each() do |tag| %>
+    <% @tags.each() do |tag| %>
 
-  <li><a href="/tags/<%= tag.id() %>"><%= tag.name() %></a></li>
+    <li><a href="/tags/<%= tag.id() %>"><%= tag.name() %></a></li>
+
+    <% end %>
+
+  </ul>
 
   <% end %>
-
-</ul>
-
-<% end %>
+</div>
