@@ -1,0 +1,23 @@
+<h1>Search Results for <%= @ingredient_search%>:</h1>
+
+<% if @search_results %>
+
+<ul>
+
+  <% @search_results.each() do |recipe| %>
+
+  <li>
+    <% if recipe.rating().!=(0) %>
+    <%= recipe.rating() %>
+    <% else %>
+      NOT rated!
+    <% end %>
+    <a href="/recipes/<%= recipe.id() %>"><%= recipe.name() %></a>
+  </li>
+
+  <% end %>
+
+</ul>
+<% else %>
+<p>There are no recipes with the ingredient <%= @ingredient_search %> in the database.</p>
+<% end %>

@@ -8,6 +8,15 @@ get('/') do
   erb(:index)
 end
 
+post('/recipes/ingredient_search') do
+  @ingredient_search = params.fetch('ingredient_search').capitalize() #'onion'
+  @ingredient = Ingredient.find_by name: @ingredient_search # onion object
+  if @ingredient
+    @search_results = @ingredient.recipes()
+  end
+  erb(:search_results)
+end
+
 get('/recipes/new') do
   @ingredients = Ingredient.all()
   @tags = Tag.all()

@@ -5,4 +5,12 @@
   <button class="btn btn-primary"><a href="/recipes/new">Add a New Recipe</a></button>
   <button class="btn btn-success"><a href="/recipes">View All Recipes</a></button>
   <button class="btn btn-danger"><a href="/tags">View All Tags</a></button>
+  <br><br>
+  <form action="/recipes/ingredient_search" method="post">
+    <div class="form-group">
+      <label for="ingredient_search">Search Recipes by Ingredient:</label>
+      <input type="text" name="ingredient_search">
+      <button type="submit">Search</button>
+    </div>
+  </form>
 </div>
