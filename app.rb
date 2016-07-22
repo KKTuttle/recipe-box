@@ -38,10 +38,14 @@ end
 post('/recipes') do
   recipe_name = params.fetch('recipe_name')
   ingredient_ids = params[:ingredient_ids]
-  instructions = params.fetch('instructions')
+  instructions = params.fetch('instructions', '')
   tag_ids = params[:tag_ids]
   @recipe = Recipe.create({:name => recipe_name, :ingredient_ids => ingredient_ids, :instruction => instructions, :tag_ids => tag_ids, :rating => 0})
-  redirect('/recipes/'.concat(@recipe.id().to_s()))
+  if @recipe.save()
+    redirect('/recipes/'.concat(@recipe.id().to_s()))
+  else
+    erb(:instructions_error)
+  end
 end
 
 get('/recipes/:id') do
